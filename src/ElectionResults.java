@@ -12,16 +12,16 @@ public class ElectionResults {
     double combined_fips;
 
     public ElectionResults(double votes_dem, double votes_gop, double total_votes, double per_dem, double per_gop, double diff, double per_point_diff, String state_abbr, String county_name, double combined_fips){
-        votes_dem = this.votes_dem;
-        votes_gop = this.votes_gop;
-        total_votes = this.total_votes;
-        per_dem = this.per_dem;
-        per_gop = this.per_gop;
-        diff = this.diff;
-        per_point_diff = this.per_point_diff;
-        state_abbr = this.state_abbr;
-        county_name = this.county_name;
-        combined_fips = this.combined_fips;
+        this.votes_dem = votes_dem;
+        this.votes_gop = votes_gop;
+        this.total_votes = total_votes;
+        this.per_dem = per_dem;
+        this.per_gop = per_gop;
+        this.diff = diff;
+        this.per_point_diff = per_point_diff;
+        this.state_abbr = state_abbr;
+        this.county_name = county_name;
+        this.combined_fips = combined_fips;
 
     }
 
