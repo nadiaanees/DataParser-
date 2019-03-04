@@ -25,7 +25,7 @@ public class Utils {
     public static ArrayList<ElectionResults> parse2016PresidentialResults(String data) {
 
         ArrayList<ElectionResults> electionResults = new ArrayList<>();
-        // String[] rows = data.split("\n");
+        String[] rows = data.split("\n");
         //rows = removeUnwantedItems(rows);
 
         // for (int i = 1; i < rows.length; i++) {
