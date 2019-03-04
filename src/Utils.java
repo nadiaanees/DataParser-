@@ -28,32 +28,31 @@ public class Utils {
         String[] rows = data.split("\n");
         rows = removeUnwantedItems(rows);
 
+        double firstField;
+        double secField;
+        double thirdField;
+        double fourthField ;
+        double fifthField;
+        double sixthField;
+        double seventhField ;
+        String eighthField;
+        String ninthField;
+        double tenthField ;
         for (int i = 1; i < rows.length; i++) {
             String[] var = rows[i].split(",");
-            for (int r = 0; r < rows.length; r++) {
-                int first = var[r].indexOf(",", 0);
-                double firstField = Double.parseDouble(var[r].substring(0, first));
-                int second = var[r].indexOf(",", first + 1);
-                double secField = Double.parseDouble(var[r].substring(first, second));
-                int third = var[r].indexOf(",", second + 1);
-                double thirdField = Double.parseDouble(var[r].substring(second, third));
-                int fourth = var[r].indexOf(",", third + 1);
-                double fourthField = Double.parseDouble(var[r].substring(third, fourth));
-                int fifth = var[r].indexOf(",", fourth + 1);
-                double fifthField = Double.parseDouble(var[r].substring(fourth, fifth));
-                int sixth = var[r].indexOf(",", fifth + 1);
-                double sixthField = Double.parseDouble(var[r].substring(fifth, sixth));
-                int seventh = var[r].indexOf(",", sixth + 1);
-                double seventhField = Double.parseDouble(var[r].substring(sixth, seventh));
-                int eighth = var[r].indexOf(",", seventh + 1);
-                String eighthField = var[r].substring(seventh, eighth);
-                int ninth = var[r].indexOf(",", eighth + 1);
-                String ninthField = var[r].substring(eighth, ninth);
-                int tenth = var[r].indexOf(",", ninth + 1);
-                double tenthField = Double.parseDouble(var[r].substring(ninth, tenth));
+                 firstField = Double.parseDouble(var[1]);
+                 secField = Double.parseDouble(var[2]);
+                 thirdField = Double.parseDouble(var[3]);
+                 fourthField = Double.parseDouble(var[4]);
+                 fifthField = Double.parseDouble(var[5]);
+                 sixthField = Double.parseDouble(var[6]);
+                 seventhField = Double.parseDouble(var[7]);
+                 eighthField = var[8];
+                 ninthField = var[9];
+                 tenthField = Double.parseDouble(var[10]);
                 ElectionResults result = new ElectionResults(firstField, secField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninthField, tenthField);
                 electionResults.add(result);
-            }
+
         }
 
         return electionResults;
