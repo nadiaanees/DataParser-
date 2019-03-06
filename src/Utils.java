@@ -23,21 +23,11 @@ public class Utils {
     }
 
     public static ArrayList<ElectionResults> parse2016PresidentialResults(String data) {
-
         ArrayList<ElectionResults> electionResults = new ArrayList<>();
         String[] rows = data.split("\n");
         rows = removeUnwantedItems(rows);
-
-        double firstField;
-        double secField;
-        double thirdField;
-        double fourthField ;
-        double fifthField;
-        double sixthField;
-        double seventhField ;
-        String eighthField;
-        String ninthField;
-        double tenthField ;
+        double firstField, secField, thirdField, fourthField, fifthField, sixthField, seventhField, tenthField;
+        String eighthField, ninthField;
         for (int i = 1; i < rows.length; i++) {
             String[] var = rows[i].split(",");
                  firstField = Double.parseDouble(var[1]);
@@ -52,16 +42,12 @@ public class Utils {
                  tenthField = Double.parseDouble(var[10]);
                 ElectionResults result = new ElectionResults(firstField, secField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninthField, tenthField);
                 electionResults.add(result);
-
         }
-
         return electionResults;
     }
 
     public static String[] removeUnwantedItems(String[] rows) {
-
         for (int i = 1; i < rows.length; i++) {
-
             if (rows[i].contains("\"")) {
                 int indexOfFirstQuote = rows[i].indexOf("\"");
                 int indexOfLastQuote = rows[i].indexOf("\"", indexOfFirstQuote + 1);
@@ -69,7 +55,6 @@ public class Utils {
                 for (int r = indexOfFirstQuote; r <= indexOfLastQuote; r++) {
                     rows[i] = rows[i].replace(num, num.replace(",", ""));
                 }
-
                 int indexOfFirstQuoteN = rows[i].indexOf("\"");
                 int indexOfLastQuoteN = rows[i].indexOf("\"", indexOfFirstQuoteN + 1);
                 String numN = rows[i].substring(indexOfFirstQuoteN, indexOfLastQuoteN + 1);
@@ -77,14 +62,11 @@ public class Utils {
                     rows[i] = rows[i].replace(numN, numN.replace("\"", ""));
                 }
             }
-
             if (rows[i].contains("%")) {
                 rows[i] = rows[i].replace("%", "");
             }
-
         }
         return rows;
-
     }
 }
 
