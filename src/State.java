@@ -18,6 +18,14 @@ public class State {
         counties.remove(c);
     }
 
+    @Override
+    public String toString() {
+        return "State{" +
+                "name='" + name + '\'' +
+                ", counties=" + counties +
+                '}';
+    }
+
     public void removeCounty(int index) {
         counties.remove(index);
     }
