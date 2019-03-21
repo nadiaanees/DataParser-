@@ -10,9 +10,7 @@ public class Utils {
 
     public static String readFileAsString(String filepath) {
         StringBuilder output = new StringBuilder();
-
         try (Scanner scanner = new Scanner(new File(filepath))) {
-
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 output.append(line + "\n");
@@ -20,15 +18,66 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return output.toString();
     }
 
-    public static String[] readFileWithCleanedLines(String file, int linesToSkip) {
+    public static String[] readEducationFile(String file, int linesToSkip) {
         file = readFileAsString(file);
         String[] lines = file.split("\n");
-        lines = removePercentSymbol(lines);
-        lines = removeCommasInBetweenQuotes(lines);
+        for (int i = 1; i < lines.length; i++) {
+            lines[i].split(",");
+            lines = removePercentSymbol(lines);
+            lines = removeCommasInBetweenQuotes(lines);
+            String[] stringFile = keepAsString(lines, 0, 1);
+            double[] doubleFile = convertToDouble(lines, 1, 8);
+            EducationResults ed = new EducationResults(stringFile, doubleFile);
+        }
+
+        return lines;
+    }
+
+    private static double[] convertToDouble(String[] lines, int start, int end) {
+        double[] arr = null;
+        for (int i = start; i < end; i++) {
+            arr[i] = Double.parseDouble(lines[i]);
+        }
+        return arr;
+    }
+
+    private static String[] keepAsString(String[] lines, int start, int end) {
+        String[] arr = null;
+        for (int i = start; i<end; i++){
+            arr[i] = lines[i];
+        }
+        return arr;
+    }
+
+    public static String[] readPregnancyFile(String file, int linesToSkip) {
+        file = readFileAsString(file);
+        String[] lines = file.split("\n");
+        for (int i = 1; i < lines.length; i++) {
+            lines[i].split(",");
+            lines = removePercentSymbol(lines);
+            lines = removeCommasInBetweenQuotes(lines);
+            String stateName = lines[i].substring(0, 1);
+            double rate = Double.parseDouble(lines[i].substring(1, 2));
+            PregnancyResults ed = new PregnancyResults(stateName, rate);
+        }
+        return lines;
+    }
+
+    public static String[] readUnemploymentFile(String file, int linesToSkip) {
+        file = readFileAsString(file);
+        String[] lines = file.split("\n");
+        for (int i = 1; i < lines.length; i++) {
+            lines[i].split(",");
+            lines = removePercentSymbol(lines);
+            lines = removeCommasInBetweenQuotes(lines);
+            String stateName = lines[i].substring(0, 1);
+            double[] arr = convertToDouble(lines, 1, 6);
+            EmploymentResults employ = new EmploymentResults(stateName, arr);
+        }
+
         return lines;
     }
 
@@ -63,11 +112,10 @@ public class Utils {
     }
 
 
-/*
-   public static ArrayList<ElectionResults> parse2016PresidentialResults(String data) {
+   /* public static ArrayList<ElectionResults> parse2016PresidentialResults(String data) {
         ArrayList<ElectionResults> electionResults = new ArrayList<>();
         String[] rows = data.split("\n");
-        rows = removeUnwantedItems(rows);
+        rows = rem(rows);
         double firstField, secField, thirdField, fourthField, fifthField, sixthField, seventhField, tenthField;
         String eighthField, ninthField;
         for (int i = 1; i < rows.length; i++) {
@@ -87,11 +135,18 @@ public class Utils {
         }
         return electionResults;
     }
+    */
+
+    //split data by lines
+    //loop over lines, and remove the unwanted stuff
+    //convert into necessary variables and save those values into different arrays like int[], String[]
+    //then create your objects like ElectionResult result = new ElectionResult(file, intFile, StringFile)
+    //In electionResult, EmploymentResult and PregnancyResul you save the necessary lines into the correct fields
 
 
-    }*/
+    }
 
-}
+
 
 
 
