@@ -21,23 +21,24 @@ public class Utils {
         return output.toString();
     }
 
-    public static String[] readEducationFile(String file, int linesToSkip) {
+    public static String[] readEducationFile(String file) {
         file = readFileAsString(file);
         String[] lines = file.split("\n");
+        String[] dataVals = {};
+        dataVals = removeCommasInBetweenQuotes(lines);
+        dataVals = removePercentSymbol(lines);
+
         for (int i = 1; i < lines.length; i++) {
-            lines[i].split(",");
-            lines = removePercentSymbol(lines);
-            lines = removeCommasInBetweenQuotes(lines);
-            String[] stringFile = keepAsString(lines, 0, 1);
-            double[] doubleFile = convertToDouble(lines, 1, 8);
+            dataVals = lines[i].split(",");
+            String[] stringFile = keepAsString(dataVals, 0, 1);
+            double[] doubleFile = convertToDouble(dataVals, 1, 8);
             EducationResults ed = new EducationResults(stringFile, doubleFile);
         }
-
         return lines;
     }
 
     private static double[] convertToDouble(String[] lines, int start, int end) {
-        double[] arr = null;
+        double[] arr = new double[end - start];
         for (int i = start; i < end; i++) {
             arr[i] = Double.parseDouble(lines[i]);
         }
@@ -45,14 +46,14 @@ public class Utils {
     }
 
     private static String[] keepAsString(String[] lines, int start, int end) {
-        String[] arr = null;
+        String[] arr = new String[1];
         for (int i = start; i<end; i++){
             arr[i] = lines[i];
         }
         return arr;
     }
 
-    public static String[] readPregnancyFile(String file, int linesToSkip) {
+    public static String[] readPregnancyFile(String file) {
         file = readFileAsString(file);
         String[] lines = file.split("\n");
         for (int i = 1; i < lines.length; i++) {
@@ -66,7 +67,7 @@ public class Utils {
         return lines;
     }
 
-    public static String[] readUnemploymentFile(String file, int linesToSkip) {
+    public static String[] readUnemploymentFile(String file) {
         file = readFileAsString(file);
         String[] lines = file.split("\n");
         for (int i = 1; i < lines.length; i++) {
