@@ -24,15 +24,20 @@ public class Utils {
     public static String[] readEducationFile(String file) {
         file = readFileAsString(file);
         String[] lines = file.split("\n");
-        String[] dataVals = {};
-        dataVals = removeCommasInBetweenQuotes(lines);
-        dataVals = removePercentSymbol(lines);
+        String[] dataVals = null;
 
         for (int i = 1; i < lines.length; i++) {
             dataVals = lines[i].split(",");
+            dataVals = removeCommasAndQuotes(lines);
+            dataVals = removePercentSymbol(lines);
             String[] stringFile = keepAsString(dataVals, 0, 1);
             double[] doubleFile = convertToDouble(dataVals, 1, 8);
             EducationResults ed = new EducationResults(stringFile, doubleFile);
+        }
+
+        for (int d = 1; d < dataVals.length; d++) {
+            String dataVal = dataVals[d];
+            System.out.println(dataVal);
         }
         return lines;
     }
@@ -40,7 +45,7 @@ public class Utils {
     private static double[] convertToDouble(String[] lines, int start, int end) {
         double[] arr = new double[end - start];
         for (int i = start; i < end; i++) {
-            arr[i] = Double.parseDouble(lines[i]);
+         // arr[i] = Double.parseDouble(lines[i]);
         }
         return arr;
     }
@@ -59,7 +64,7 @@ public class Utils {
         for (int i = 1; i < lines.length; i++) {
             lines[i].split(",");
             lines = removePercentSymbol(lines);
-            lines = removeCommasInBetweenQuotes(lines);
+            lines = removeCommasAndQuotes(lines);
             String stateName = lines[i].substring(0, 1);
             double rate = Double.parseDouble(lines[i].substring(1, 2));
             PregnancyResults ed = new PregnancyResults(stateName, rate);
@@ -73,16 +78,15 @@ public class Utils {
         for (int i = 1; i < lines.length; i++) {
             lines[i].split(",");
             lines = removePercentSymbol(lines);
-            lines = removeCommasInBetweenQuotes(lines);
+            lines = removeCommasAndQuotes(lines);
             String stateName = lines[i].substring(0, 1);
             double[] arr = convertToDouble(lines, 1, 6);
             EmploymentResults employ = new EmploymentResults(stateName, arr);
         }
-
         return lines;
     }
 
-    public static String[] removeCommasInBetweenQuotes(String[] rows) {
+    public static String[] removeCommasAndQuotes(String[] rows) {
         for (int i = 1; i < rows.length; i++) {
             if (rows[i].contains("\"")) {
                 int indexOfFirstQuote = rows[i].indexOf("\"");
